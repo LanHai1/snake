@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .clearfix {
+            *zoom: 1;
+        }
+        
+        .clearfix::before {
+            content: "";
+            display: block;
+            clear: both;
+            overflow: hidden;
+        }
+        
+        body {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background-color: #3f3f3fc4;
+        }
+        
+        .map {
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .boxClose {
+            display: none;
+            z-index: 99;
+        }
+        
+        .boxClose>h1 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .box,
+        .boxClose {
+            width: 300px;
+            height: 300px;
+            background-color: #374f85;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 30px;
+            box-shadow: 4px 4px 7px 0px #918f8f, inset 2px 2px 5px 1px #d1d1d1;
+        }
+        
+        h2 {
+            text-align: left;
+            width: 200px;
+            margin: 58px auto 20px;
+            color: #cbcbcb;
+        }
+        
+        input {
+            outline: none;
+            border: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        #text {
+            height: 30px;
+            box-sizing: border-box;
+            padding-left: 20px;
+            width: 80%;
+            margin: 0 10%;
+            font-size: 14px;
+            border-radius: 10px;
+            color: #fff;
+        }
+        
+        #submit {
+            float: right;
+            margin: 30px 10%;
+            border-radius: 10px;
+            height: 30px;
+            width: 80px;
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+        
+        .openGame {
+            cursor: pointer;
+            color: #ff3434c4;
+            text-decoration: overline;
+        }
+        
+        .openGame:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="map">
+        <div class="box">
+            <h2>请输入您的姓名,默认游客登陆~</h2>
+            <input type="text" placeholder="游客" id="text" autofocus>
+            <br>
+
+            <input type="button" value="开始游戏" id="submit">
+        </div>
+
+        <div class="boxClose">
+            <h1>游戏结束
+                <a class="openGame">重新开始</a>
+            </h1>
+        </div>
+    </div>
+    <script src="food.js"></script>
+    <script src="snake.js"></script>
+    <script src="color.js"></script>
+    <script src="game.js"></script>
+    <script>
+        let map = document.querySelector(".map");
+
+
+        let $ = id => document.getElementById(id);
+
+        let user;
+
+        let open = document.querySelector(".openGame");
+        $("submit").onclick = function() {
+            document.querySelector(".box").style.display = "none";
+            user = $("text").value;
+            let game = new Game(map, user, document.querySelector(".boxClose"));
+            game.start();
+        }
+
+        open.onclick = function() {
+            let game = new Game(map, user, document.querySelector(".boxClose"));
+            game.start();
+            document.querySelector(".boxClose").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
